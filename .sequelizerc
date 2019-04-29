@@ -1,8 +1,8 @@
-const ENV = process.env.NODE_ENV || 'development';
+const path = require('path');
 
 module.exports = {
-  config: 'config/database.js',
-  'migrations-path': 'src/infra/database/migrate',
-  'models-path': 'src/infra/database/models',
-  'seeders-path': 'src/infra/database/seeds'
-};
+  'config': path.resolve('config', 'database.js'),
+  'migrations-path': path.resolve('./src/infra/sequelize', 'migrations'),
+  'models-path': path.resolve('./src/infra/database', 'models'),
+  'seeders-path': path.resolve('./src/infra/sequelize', 'seeders')
+}

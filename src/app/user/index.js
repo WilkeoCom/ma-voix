@@ -1,7 +1,11 @@
+const get = require('./get')
+const post = require('./post')
+const put = require('./put')
+const remove = require('./delete')
+
 module.exports = {
-  GetAllUsers: require('./GetAllUsers'),
-  CreateUser: require('./CreateUser'),
-  GetUser: require('./GetUser'),
-  UpdateUser: require('./UpdateUser'),
-  DeleteUser: require('./DeleteUser')
-};
+  get,
+  post,
+  put,
+  remove
+}

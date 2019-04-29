@@ -1,10 +1,16 @@
-const chai = require('chai');
-const dirtyChai = require('dirty-chai');
-const chaiChange = require('chai-change');
-const cleanDatabase = require('test/support/cleanDatabase');
+const request = require('supertest')
+const chai = require('chai')
+const container = require('src/container')
+const server = container.resolve('server')
+const config = container.resolve('config')
+const logger = container.resolve('logger')
 
-chai.use(dirtyChai);
-chai.use(chaiChange);
+/**
+ * turn off logger since we are testing on winston
+ */
+logger.transports.forEach((t) => (t.silent = true))
 
-// Comment this line if you're not using a database
-beforeEach(cleanDatabase);
+global.expect = chai.expect
+global.app = container
+global.request = request(server.app)
+global.config = config

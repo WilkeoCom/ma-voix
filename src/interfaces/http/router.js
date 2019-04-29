@@ -1,33 +1,40 @@
-const { Router } = require('express');
-const statusMonitor = require('express-status-monitor');
-const cors = require('cors');
-const bodyParser = require('body-parser');
-const compression = require('compression');
-const methodOverride = require('method-override');
-const controller = require('./utils/createControllerRoutes');
+const statusMonitor = require('express-status-monitor')
+const cors = require('cors')
+const bodyParser = require('body-parser')
+const compression = require('compression')
 
-module.exports = ({ config, containerMiddleware, loggerMiddleware, errorHandler, swaggerMiddleware }) => {
-  const router = Router();
+const { Router } = require('express')
+const { partialRight } = require('ramda')
+
+const controller = require('./utils/create_controller')
+const httpLogger = require('./middlewares/http_logger')
+const errorHandler = require('./middlewares/error_handler')
+
+module.exports = ({ config, logger, database }) => {
+  const router = Router()
 
   /* istanbul ignore if */
-  if(config.env === 'development') {
-    router.use(statusMonitor());
+  if (config.env === 'development') {
+    router.use(statusMonitor())
   }
 
   /* istanbul ignore if */
-  if(config.env !== 'test') {
-    router.use(loggerMiddleware);
+  if (config.env !== 'test') {
+    router.use(httpLogger(logger))
   }
 
-  const apiRouter = Router();
+  const apiRouter = Router()
 
   apiRouter
-    .use(methodOverride('X-HTTP-Method-Override'))
-    .use(cors())
+    .use(cors({
+      origin: [
+        'http://localhost:3000'
+      ],
+      methods: ['GET', 'POST', 'PUT', 'DELETE'],
+      allowedHeaders: ['Content-Type', 'Authorization']
+    }))
     .use(bodyParser.json())
     .use(compression())
-    .use(containerMiddleware)
-    .use('/docs', swaggerMiddleware);
 
   /*
    * Add your API routes here
@@ -38,11 +45,13 @@ module.exports = ({ config, containerMiddleware, loggerMiddleware, errorHandler,
    * The `controllerPath` is relative to the `interfaces/http` folder
    */
 
-  apiRouter.use('/users', controller('user/UsersController'));
+  apiRouter.use('/', controller('index'))
+  apiRouter.use('/token', controller('token').router)
+  apiRouter.use('/users', controller('user').router)
 
-  router.use('/api', apiRouter);
+  router.use(`/api/${config.version}`, apiRouter)
 
-  router.use(errorHandler);
+  router.use(partialRight(errorHandler, [logger, config]))
 
-  return router;
-};
+  return router
+}

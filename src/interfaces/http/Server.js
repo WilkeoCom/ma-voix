@@ -1,25 +1,22 @@
-const express = require('express');
+const express = require('express')
 
-class Server {
-  constructor({ config, router, logger }) {
-    this.config = config;
-    this.logger = logger;
-    this.express = express();
+module.exports = ({ config, router, logger, auth }) => {
+  const app = express()
 
-    this.express.disable('x-powered-by');
-    this.express.use(router);
-  }
+  app.disable('x-powered-by')
+  app.use(auth.initialize())
+  app.use(router)
 
-  start() {
-    return new Promise((resolve) => {
-      const http = this.express
-        .listen(this.config.web.port, () => {
-          const { port } = http.address();
-          this.logger.info(`[p ${process.pid}] Listening at port ${port}`);
-          resolve();
-        });
-    });
+  // we define our static folder
+  app.use(express.static('public'))
+
+  return {
+    app,
+    start: () => new Promise((resolve) => {
+      const http = app.listen(config.port, () => {
+        const { port } = http.address()
+        logger.info(`🤘 API - Port ${port}`)
+      })
+    })
   }
 }
-
-module.exports = Server;

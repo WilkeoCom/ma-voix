@@ -1,18 +1,25 @@
-const { attributes } = require('structure');
+const t = require('tcomb')
+const { compose } = require('ramda')
+const { cleanData } = require('../helper')
 
-const User = attributes({
-  id: Number,
-  name: {
-    type: String,
-    required: true
-  },
-  age: Number
-})(class User {
-  isLegal() {
-    return this.age >= User.MIN_LEGAL_AGE;
-  }
-});
+const User = t.struct({
+  id: t.maybe(t.String),
+  firstName: t.String,
+  lastName: t.String,
+  middleName: t.String,
+  email: t.String,
+  password: t.maybe(t.String),
+  roleId: t.Number,
+  verificationCode: t.maybe(t.String),
+  isVerified: t.maybe(t.Number),
+  isDeleted: t.Number,
+  createdBy: t.maybe(t.String),
+  updatedBy: t.maybe(t.String),
+  createdAt: t.maybe(t.Date),
+  updatedAt: t.maybe(t.Date)
+})
 
-User.MIN_LEGAL_AGE = 21;
-
-module.exports = User;
+module.exports = compose(
+  cleanData,
+  User
+)

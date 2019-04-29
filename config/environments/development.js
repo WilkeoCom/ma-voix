@@ -1,14 +1,14 @@
-const path = require('path');
-const logPath = path.join(__dirname, '../../logs/development.log');
-
 module.exports = {
-  web: {
-    port: 3000
-  },
+  version: process.env.APP_VERSION,
+  port: process.env.PORT || 4000,
+  timezone: process.env.TIMEZONE,
   logging: {
-    appenders: [
-      { type: 'console' },
-      { type: 'file', filename: logPath }
-    ]
+    maxsize: 100 * 1024, // 100mb
+    maxFiles: 2,
+    colorize: false
+  },
+  authSecret: process.env.SECRET,
+  authSession: {
+    session: false
   }
-};
+}
