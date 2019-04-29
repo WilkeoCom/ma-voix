@@ -37,7 +37,7 @@
     "docker:test:specs": "npm run docker:script npm run test:specs"
   },
   "lint-staged": {
-    "*.js": "lint"
+    "*.js": "npm run lint"
   },
   "pre-commit": "lint:staged",
   "author": "Romain Baiguerra <romain.baiguera@free.fr>",
