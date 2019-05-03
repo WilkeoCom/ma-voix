@@ -14,7 +14,8 @@
 
 1.  Make sure you have `nvm`, node `v10.7` or `LTS` version of node installed
 2.  Install `yarn` - `npm install -g yarn`.
-3.  Use a smart `.npmrc`. By default, `npm` doesn’t save installed dependencies to package.json (and you should always track your dependencies!).
+3.  Install python 2.7. [Instructions](https://github.com/nodejs/node-gyp) 
+4.  Use a smart `.npmrc`. By default, `npm` doesn’t save installed dependencies to package.json (and you should always track your dependencies!).
 
 ## Docker support
 
@@ -65,6 +66,22 @@ Type "help" for help.
 
 $ CREATE DATABASE node_ddd;
 $ CREATE DATABASE node_ddd_test;
+```
+
+### VS Code Debugging (Development)
+
+Add this configuration in your .vscode/launch.json
+
+```json
+{
+  "type": "node",
+  "request": "launch",
+  "name": "Yarn start",
+  "runtimeExecutable": "yarn",
+  "runtimeArgs": ["start:dev"],
+  "cwd": "${workspaceRoot}",
+  "timeout": 10000
+ }
 ```
 
 ## Overview
@@ -229,8 +246,8 @@ This boilerplate is open to suggestions and contributions, documentation contrib
 
 ## Acknowledgments
 
-This boilerplate is forked and modified from [node-api-boilerplate](https://github.com/talyssonoc/node-api-boilerplate) - [Talysson de Oliveira Cassiano](https://github.com/talyssonoc) :clap:
+This boilerplate is forked and modified from [node-ddd-boilerplate](https://github.com/joshuaalpuerto/node-ddd-boilerplate) - [Joshua Alpuerto](https://github.com/joshuaalpuerto) :clap:
 
 ## License
 
-MIT License - fork, modify and use however you want.
+MIT License.
