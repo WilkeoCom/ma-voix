@@ -1,4 +1,4 @@
-const User = require('./user')
+const User = require('./userMock')
 
 module.exports = ({ database }) => {
   const userModel = database.models.users
