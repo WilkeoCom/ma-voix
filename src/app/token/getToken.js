@@ -1,10 +1,10 @@
 /**
- * this file will hold all the get use-case for user domain
+ * this file will hold all the get use-case for token domain
  */
 const Token = require('src/domain/token')
 
 /**
-  * function for getter user.
+  * function for getter token.
   */
 module.exports = ({ userRepository, webToken }) => {
   // code for getting all the items

@@ -1,5 +1,5 @@
 /**
-  * function for getter user.
+  * function for getter users.
   */
 module.exports = ({ userRepository }) => {
   // code for getting all the items

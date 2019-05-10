@@ -3,7 +3,7 @@ const { expect, use } = require('chai')
 const sinon = require('sinon')
 const sinonChai = require('sinon-chai')
 
-const updateUsecase = require('src/app/user/put')
+const updateUsecase = require('src/app/user/udpateUser')
 
 use(sinonChai)
 

@@ -1,6 +1,6 @@
 
 const { expect } = require('chai')
-const getUsecase = require('src/app/user/get')
+const getAllUsersUsecase = require('src/app/user/getAllUsers')
 
 describe('App -> User -> Get', () => {
   let useCase
@@ -15,7 +15,7 @@ describe('App -> User -> Get', () => {
         getAll: () => mockData
       }
 
-      useCase = getUsecase({
+      useCase = getAllUsersUsecase({
         userRepository: MockRepository
       })
     })
@@ -33,7 +33,7 @@ describe('App -> User -> Get', () => {
         getAll: () => Promise.reject('Error')
       }
 
-      useCase = getUsecase({
+      useCase = getAllUsersUsecase({
         userRepository: MockRepository
       })
     })

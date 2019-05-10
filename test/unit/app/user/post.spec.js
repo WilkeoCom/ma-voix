@@ -1,6 +1,6 @@
 
 const { expect } = require('chai')
-const postUsecase = require('src/app/user/post')
+const createUsecase = require('src/app/user/createUser')
 
 describe('App -> User -> Post', () => {
   let useCase
@@ -11,7 +11,7 @@ describe('App -> User -> Post', () => {
         create: (data) => data
       }
 
-      useCase = postUsecase({
+      useCase = createUsecase({
         userRepository: MockRepository
       })
     })
@@ -50,7 +50,7 @@ describe('App -> User -> Post', () => {
         create: () => Promise.reject('Error')
       }
 
-      useCase = postUsecase({
+      useCase = createUsecase({
         userRepository: MockRepository
       })
     })
