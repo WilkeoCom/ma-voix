@@ -3,7 +3,7 @@ const { expect, use } = require('chai')
 const sinon = require('sinon')
 const sinonChai = require('sinon-chai')
 
-const deleteUsecase = require('src/app/user/delete')
+const deleteUsecase = require('src/app/user/deleteUser')
 
 use(sinonChai)
 
@@ -14,7 +14,7 @@ describe('App -> User -> Delete', () => {
   describe('Success path', () => {
     beforeEach(() => {
       const MockRepository = {
-        update: () => {}
+        update: () => { }
       }
 
       method = sinon.spy(MockRepository, 'update')
