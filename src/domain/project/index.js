@@ -1,5 +1,5 @@
 const Project = require('./project')
-const ProjectType = require('./projectType')
+const ProjectType = require('./topic')
 
 module.exports = {
   Project,
