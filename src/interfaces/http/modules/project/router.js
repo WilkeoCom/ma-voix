@@ -12,7 +12,7 @@ module.exports = ({
   /**
  * @swagger
  * definitions:
- *   user:
+ *   project:
  *     properties:
  *       id:
  *         type: string
@@ -33,7 +33,7 @@ module.exports = ({
 
   /**
  * @swagger
- * /users:
+ * /projects:
  *   get:
  *     tags:
  *       - Projects

@@ -1,4 +1,3 @@
-
 const container = require('src/container') // we have to get the DI
 const { getAllProjects } = require('src/app/project')
 
