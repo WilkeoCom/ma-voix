@@ -1,5 +1,6 @@
-# Node DDD Boilerplate
-> RESTful api with Domain Driven Design
+# Ma voix
+
+> Ma Voix back-end project - RESTful api with Domain Driven Design
 
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
@@ -13,46 +14,41 @@
 
 1.  Make sure you have `nvm`, node `v10.7` or `LTS` version of node installed
 2.  Install `yarn` - `npm install -g yarn`.
-3.  Use a smart `.npmrc`. By default, `npm` doesn’t save installed dependencies to package.json (and you should always track your dependencies!).
+3.  Install python 2.7. [Instructions](https://github.com/nodejs/node-gyp) 
+4.  Use a smart `.npmrc`. By default, `npm` doesn’t save installed dependencies to package.json (and you should always track your dependencies!).
 
 ## Docker support
 
 **Prerequisites**
+
 1. [Docker](https://www.docker.com/products/docker-engine) Community Edition v17 or higher
 
 ```sh
 $ docker-compose up -d
 ```
+
 Access `http://localhost:<PORT>/api/<VERSION>` and you're ready to go!
+
 > http://localhost:4000/api/v1
 
 ### Docker CLI
+
 - `yarn docker:db:reset` - reset and run all migrations and seeders.
 - `yarn docker:db:refresh` - reset and run all migrations.
 - `yarn docker:db:refresh-test` - reset and run all migrations for test
 - `yarn docker:test` - refreshes test database and run unit and black-box testing.
 
-*...will add more*
+_...will add more_
 
 ## Quick Start
 
 1. Clone the repository with `git clone --depth=1 https://github.com/joshuaalpuerto/node-ddd-boilerplate.git`
 2. Install the dependencies with [Yarn](https://yarnpkg.com/en/docs/install/)
-3. Install global dependencies [Application Setup](https://github.com/joshuaalpuerto/node-ddd-boilerplate#application-setup-development)
-4. Create the development and test [Databases](https://github.com/joshuaalpuerto/node-ddd-boilerplate#database-setup-development)
-5. Run database migrations and seed with `yarn db:refresh`
-6. Run the application in development mode with `yarn start`
-7. Access `http://localhost:<PORT>/api/<VERSION>` and you're ready to go!
-    > http://localhost:4000/api/v1
-
-### Application Setup (Development)
-
-```sh
-$ npm install -g standard   # JavaScript Standard Style
-$ npm install -g babel-eslint  # required by StandardJs
-$ npm install -g snazzy   # Format JavaScript Standard Style as beautiful output
-$ npm install -g sequelize-cli  # CLI for Sequelize
-```
+3. Create the development and test [Databases](https://github.com/joshuaalpuerto/node-ddd-boilerplate#database-setup-development)
+4. Run database migrations and seed with `yarn db:refresh`
+5. Run the application in development mode with `yarn start`
+6. Access `http://localhost:<PORT>/api/<VERSION>` and you're ready to go!
+   > http://localhost:4000/api/v1
 
 ### Database Setup (Development)
 
@@ -70,6 +66,22 @@ Type "help" for help.
 
 $ CREATE DATABASE node_ddd;
 $ CREATE DATABASE node_ddd_test;
+```
+
+### VS Code Debugging (Development)
+
+Add this configuration in your .vscode/launch.json
+
+```json
+{
+  "type": "node",
+  "request": "launch",
+  "name": "Yarn start",
+  "runtimeExecutable": "yarn",
+  "runtimeArgs": ["start:dev"],
+  "cwd": "${workspaceRoot}",
+  "timeout": 10000
+ }
 ```
 
 ## Overview
@@ -128,6 +140,7 @@ $ sequelize seed:create     # create seeder
 > If you did not install your sequelize-cli globally you can run this commands by `npx`
 
 #### Setting up associations — migration and model files
+
 **IMPORTANT**: as of `6/23/17` the model file created with the `sequelize db:model` command still initializes a model with an empty `classMethods` object with an `associate` property in the options passed to `sequelize.define` method. **You cannot define associations this way anymore as of Sequelize v4.0.0-1.** This tripped me up for a hot second because the generated model file did not reflect this change, and the fact that support for the old way had been removed is seemingly buried in the changelogs. Don’t make the same mistake I did and be super confused for too long about why associations aren’t working.
 
 ```js
@@ -156,6 +169,7 @@ module.exports = function(sequelize, DataTypes) {
   return nameofmodel
 }
 ```
+
 ### Sequelize CLI Documentation
 
 For reference, see: [https://github.com/sequelize/cli](https://github.com/sequelize/cli)
@@ -187,10 +201,12 @@ For reference, see: [https://github.com/sequelize/cli](https://github.com/sequel
 - [Swagger-jsdoc](https://github.com/Surnet/swagger-jsdoc)- enables you to integrate Swagger using JSDoc comments in your code. Just add @swagger on top of your DocBlock and declare the meaning of your code in yaml complying to the OpenAPI specification.
 
 ### Logging
+
 - [winston](https://github.com/winstonjs/winston) - a multi-transport async logging library for Node.js. It is designed to be a simple and universal logging library with support for multiple transports. A transport is essentially a storage device for your logs. Each instance of a winston logger can have multiple transports configured at different levels. For example, one may want error logs to be stored in a persistent remote location (like a database), but all logs output to the console or a local file.
 - [morgan](https://github.com/expressjs/morgan) - HTTP request logger middleware for Node.js. A helper that collects logs from your server, such as your request logs.
 
 ### Tests
+
 - [mocha](https://mochajs.org/) - JavaScript test framework running on Node.js and in the browser, making asynchronous testing simple and fun
 - [chai](http://chaijs.com/) - a BDD / TDD assertion library for node and the browser that can be delightfully paired with any javascript testing framework.
 - [supertest](https://github.com/visionmedia/supertest) - HTTP assertions made easy via superagent.
@@ -210,10 +226,10 @@ Adding `pre-commit` to your project can be helpful to encourage consistency and 
 
 - **2 spaces** – for indentation
 - **Single quotes for strings** – except to avoid escaping
-- **No unused variables** – this one catches *tons* of bugs!
+- **No unused variables** – this one catches _tons_ of bugs!
 - **No semicolons** – [It's][1] [fine.][2] [Really!][3]
 - **Never start a line with `(`, `[`, or `` ` ``**
-  - This is the **only** gotcha with omitting semicolons – *automatically checked for you!*
+  - This is the **only** gotcha with omitting semicolons – _automatically checked for you!_
   - [More details][4]
 - **Space after keywords** `if (condition) { ... }`
 - **Space after function name** `function name (arg) { ... }`
@@ -229,9 +245,9 @@ Adding `pre-commit` to your project can be helpful to encourage consistency and 
 This boilerplate is open to suggestions and contributions, documentation contributions are also important! :)
 
 ## Acknowledgments
-This boilerplate is forked and modified from [node-api-boilerplate](https://github.com/talyssonoc/node-api-boilerplate) - [Talysson de Oliveira Cassiano](https://github.com/talyssonoc) :clap:
+
+This boilerplate is forked and modified from [node-ddd-boilerplate](https://github.com/joshuaalpuerto/node-ddd-boilerplate) - [Joshua Alpuerto](https://github.com/joshuaalpuerto) :clap:
 
 ## License
-MIT License - fork, modify and use however you want.
 
-
+MIT License.
