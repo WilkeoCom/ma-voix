@@ -1,32 +1,31 @@
 
 const { expect } = require('chai')
+const getProjectUsecase = require('src/app/project/getProject')
 
-const getAllProjectsUsecase = require('src/app/project/getAllProjects')
-
-describe('App -> Project -> GetAll', () => {
+describe('App -> Project -> Get', () => {
   let useCase
-  const mockData = [{
+  const mockData = {
     'projectType': 'projet de loi',
     'status': 'Première lecture (AN)',
     'title': 'projet de loi d\'orientation des mobilités',
     'topics': ['TRANSPORT'],
     'url': 'http://www.senat.fr/dossier-legislatif/pjl18-157.html'
-  }]
+  }
 
   describe('Success path', () => {
     beforeEach(() => {
       const MockRepository = {
-        getAll: () => mockData
+        findById: () => mockData
       }
 
-      useCase = getAllProjectsUsecase({
+      useCase = getProjectUsecase({
         projectRepository: MockRepository
       })
     })
 
-    it('should display all the records on success', async () => {
-      const lists = await useCase.all()
-      expect(lists).to.equal(mockData)
+    it('should display the record on success', async () => {
+      const user = await useCase.get('1')
+      expect(user).to.equal(mockData)
     })
   })
 
@@ -34,10 +33,10 @@ describe('App -> Project -> GetAll', () => {
     beforeEach(() => {
       const MockRepository = {
         // eslint-disable-next-line prefer-promise-reject-errors
-        getAll: () => Promise.reject('Error')
+        findById: () => Promise.reject('Error')
       }
 
-      useCase = getAllProjectsUsecase({
+      useCase = getProjectUsecase({
         projectRepository: MockRepository
       })
     })
@@ -45,7 +44,7 @@ describe('App -> Project -> GetAll', () => {
     it('should display error on rejection', async () => {
       let error
       try {
-        await useCase.all()
+        await useCase.get('0')
       } catch (e) {
         error = e.message
       }

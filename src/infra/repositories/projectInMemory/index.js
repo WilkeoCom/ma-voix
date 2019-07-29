@@ -2,11 +2,9 @@ const { toEntity } = require('./transform')
 const fakeProjects = require('../../support/fakers/development/projects')
 
 module.exports = ({ model }) => {
-  const projects = [
-    {
-      dataValues: { ...fakeProjects()[0] }
-    }
-  ]
+  const projects = fakeProjects().map(p => ({
+    dataValues: p
+  }))
 
   const getAll = (...args) =>
     projects.map(({ dataValues }) => {
@@ -28,10 +26,10 @@ module.exports = ({ model }) => {
       const project = projects.find(u => u.dataValues.id === id)
 
       if (!project) {
-        reject(new Error())
+        reject(new Error('Project not found'))
+      } else {
+        resolve(toEntity(project.dataValues))
       }
-
-      resolve(toEntity(project.dataValues))
     })
   }
 

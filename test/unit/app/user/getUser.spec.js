@@ -1,28 +1,28 @@
 
 const { expect } = require('chai')
-const getAllUsersUsecase = require('src/app/user/getAllUsers')
+const getUserUsecase = require('src/app/user/getUser')
 
-describe('App -> User -> GetAll', () => {
+describe('App -> User -> Get', () => {
   let useCase
-  const mockData = [{
+  const mockData = {
     firstName: 'Test',
     lastName: 'Developer'
-  }]
+  }
 
   describe('Success path', () => {
     beforeEach(() => {
       const MockRepository = {
-        getAll: () => mockData
+        findById: () => mockData
       }
 
-      useCase = getAllUsersUsecase({
+      useCase = getUserUsecase({
         userRepository: MockRepository
       })
     })
 
-    it('should display all the records on success', async () => {
-      const lists = await useCase.all()
-      expect(lists).to.equal(mockData)
+    it('should display the record on success', async () => {
+      const user = await useCase.get('1')
+      expect(user).to.equal(mockData)
     })
   })
 
@@ -30,10 +30,10 @@ describe('App -> User -> GetAll', () => {
     beforeEach(() => {
       const MockRepository = {
         // eslint-disable-next-line prefer-promise-reject-errors
-        getAll: () => Promise.reject('Error')
+        findById: () => Promise.reject('Error')
       }
 
-      useCase = getAllUsersUsecase({
+      useCase = getUserUsecase({
         userRepository: MockRepository
       })
     })
@@ -41,7 +41,7 @@ describe('App -> User -> GetAll', () => {
     it('should display error on rejection', async () => {
       let error
       try {
-        await useCase.all()
+        await useCase.get('0')
       } catch (e) {
         error = e.message
       }

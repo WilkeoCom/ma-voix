@@ -49,6 +49,7 @@ module.exports = ({ config, logger, database }) => {
   apiRouter.use('/projects', controller('project').router)
   apiRouter.use('/token', controller('token').router)
   apiRouter.use('/users', controller('user').router)
+  apiRouter.use('/votes', controller('vote').router)
 
   router.use(`/api/${config.version}`, apiRouter)
 

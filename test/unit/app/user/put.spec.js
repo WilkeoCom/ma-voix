@@ -32,7 +32,7 @@ describe('App -> User -> Put', () => {
       })
     })
 
-    it('should have called delete method of userRepository', async () => {
+    it('should have called update method of userRepository', async () => {
       await useCase.update({ id: 1, body })
       // eslint-disable-next-line
       expect(method).to.have.been.called

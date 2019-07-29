@@ -44,10 +44,10 @@ module.exports = ({ model }) => {
       const user = users.find(u => u.dataValues.id === id)
 
       if (!user) {
-        reject(new Error())
+        reject(new Error('User not found'))
+      } else {
+        resolve(toEntity(user.dataValues))
       }
-
-      resolve(toEntity(user.dataValues))
     })
   }
 
@@ -59,7 +59,7 @@ module.exports = ({ model }) => {
     )
 
     if (!user) {
-      throw new Error()
+      return null
     }
 
     return toEntity(user.dataValues)
