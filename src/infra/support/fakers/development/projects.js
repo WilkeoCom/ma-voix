@@ -4,7 +4,7 @@ module.exports = () => [{
   projectType: 'projet de loi',
   status: 'Première lecture (Sénat)',
   title: 'projet de loi pour une école de la confiance',
-  topics: 'Culture, Éducation, Société',
+  topics: ['CULTURE', 'EDUCATION', 'SOCIETY'],
   url: 'http://www.senat.fr/dossier-legislatif/pjl18-323.html'
 },
 {
@@ -13,6 +13,6 @@ module.exports = () => [{
   projectType: 'projet de loi',
   status: 'Première lecture (AN)',
   title: 'projet de loi d\'orientation des mobilités',
-  topics: 'Transports',
+  topics: ['TRANSPORT'],
   url: 'http://www.senat.fr/dossier-legislatif/pjl18-157.html'
 }]

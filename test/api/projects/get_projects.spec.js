@@ -48,7 +48,7 @@ describe('Routes: GET Projects', () => {
             'projectType': 'projet de loi',
             'status': 'Première lecture (AN)',
             'title': 'projet de loi d\'orientation des mobilités',
-            'topics': 'Transports',
+            'topics': ['TRANSPORT'],
             'url': 'http://www.senat.fr/dossier-legislatif/pjl18-157.html'
           })
         )
