@@ -1,7 +1,6 @@
 
 const { expect } = require('chai')
 const createUsecase = require('src/app/vote/createVote')
-// const VoteChoice = require('src/domain/vote/voteChoice')
 
 describe('App -> Vote -> Post', () => {
   let useCase

@@ -1,12 +1,13 @@
 const container = require('src/container') // we have to get the DI
-const { getAllProjects } = require('src/app/project')
+const { getProjectsWithVoteResults } = require('src/app/project')
 
 module.exports = () => {
   const { repository: {
-    projectRepository
+    projectRepository,
+    voteRepository
   } } = container.cradle
 
-  const getUseCase = getAllProjects({ projectRepository })
+  const getUseCase = getProjectsWithVoteResults({ projectRepository, voteRepository })
 
   return {
     getUseCase
